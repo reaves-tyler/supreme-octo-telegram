@@ -15,7 +15,7 @@ class BlackbookPowerSportsVIN extends Controller
     public function __invoke(Request $request)
     {
         $validator = Validator::make(
-            ['vin'=>$request->vin], 
+            ['vin' => $request->vin],
             ['vin' => 'required|string|min:10|max:17']
         );
         if ($validator->fails()) {
@@ -26,10 +26,10 @@ class BlackbookPowerSportsVIN extends Controller
         return $response->json();
     }
 
-    private function getVehicleValuation(string $vin) {
+    private function getVehicleValuation(string $vin)
+    {
         $auth = base64_encode($_ENV['BLACKBOOK_USERNAME'] . ':' . $_ENV['BLACKBOOK_PASSWORD']);
         $response = Http::withHeaders([
-            'Content-Type' => "application/json",
             'Authorization' => "Basic {$auth}"
         ])->get($this->generateUrl($vin));
         if ($response->failed()) {
@@ -43,6 +43,4 @@ class BlackbookPowerSportsVIN extends Controller
     {
         return $_ENV['BLACKBOOK_BASEURL'] .  "PowersportsAPI/PowersportsAPI/Vehicle/VIN/{$vin}";
     }
-
-    
 }
