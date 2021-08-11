@@ -56,3 +56,12 @@ Simple example of a REST API with Laravel 8.x
 ```
     $ curl -H 'content-type: application/json' -H 'Accept: application/json' -v -X GET http://127.0.0.1:8000/api/books  -H 'Authorization:Basic email:password'
 ```
+
+## Testing with phpunit
+```
+    $ XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-html reports/
+```
+
+Make sure xdebug is installed and enabled for your version of php.
+
+PHP v7.3.28 is compatible with xdebug v3.0.4

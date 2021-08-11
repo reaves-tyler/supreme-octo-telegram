@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Api\Blackbook;
 
 use App\Http\Controllers\Controller;
+use App\Http\Helpers\APIToTIConverter;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 
 class BlackbookPowerSportsVIN extends Controller
@@ -23,7 +23,7 @@ class BlackbookPowerSportsVIN extends Controller
         }
 
         $response = $this->getVehicleValuation($request->vin);
-        return $response->json();
+        return $response;
     }
 
     private function getVehicleValuation(string $vin)
@@ -36,7 +36,7 @@ class BlackbookPowerSportsVIN extends Controller
             $response->throw();
         }
 
-        return $response;
+        return APIToTIConverter::convertBlackBookToDto($response);
     }
 
     private function generateUrl(string $vin)
