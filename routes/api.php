@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Blackbook\Blackbook;
+use App\Http\Controllers\Api\Blackbook\BlackbookPowerSportsVIN;
 use App\Http\Controllers\Api\Blackbook\BlackbookYMM;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -23,4 +24,5 @@ Route::get('/', function () {
 
 Route::get('/vehicle-valuation', VehicleValuation::class);
 Route::post('/vehicle-valuation/blackbook', Blackbook::class);
+Route::post('/vehicle-valuation/blackbook/powersports/{vin}', BlackbookPowerSportsVIN::class)->whereAlphaNumeric('vin');
 Route::post('/vehicle-valuation/blackbook/{year}/{make}/{model}', BlackbookYMM::class)->whereNumber('year')->whereAlpha('make')->whereAlphaNumeric('model');
