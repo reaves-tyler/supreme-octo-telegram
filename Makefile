@@ -7,3 +7,6 @@ up:
 
 down:
 	./vendor/bin/sail down
+
+test:
+	XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-html reports/
