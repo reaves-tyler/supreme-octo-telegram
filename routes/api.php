@@ -5,7 +5,7 @@ use App\Http\Controllers\Api\Blackbook\BlackbookPowerSportsYMM;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\ValidateAPIKey;
-
+use App\Http\Controllers\PostController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -24,3 +24,7 @@ Route::middleware([ValidateAPIKey::class])->group(function () {
     Route::post('/vehicle-valuation/blackbook/powersports/{vin}', BlackbookPowerSportsVIN::class);
     Route::post('/vehicle-valuation/blackbook/powersports/{year}/{make}/{model}', BlackbookPowerSportsYMM::class);
 });
+
+Route::resource('posts', PostController::class)->only([
+    'destroy', 'show', 'store', 'update'
+ ]);
