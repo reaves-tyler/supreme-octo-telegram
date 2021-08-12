@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\JsonResponse;
 
-class BlackBookPowerSportsVINTest extends TestCase
+class BlackBookPowerSportsUVCTest extends TestCase
 {
     /**
      * @var: string
@@ -16,12 +16,12 @@ class BlackBookPowerSportsVINTest extends TestCase
     /**
      * @var: string
      */
-    const VIN = '1HD1HHZ187K811405';
+    const UVC = '2012022271';
 
     /**
      * @var: string
      */
-    const VIN_TWO = 'ABCDEFGHIJKLMNOPQ';
+    const UVC_TWO = '0000000000';
 
     /**
      * @var array
@@ -85,30 +85,30 @@ class BlackBookPowerSportsVINTest extends TestCase
     /**
      * @var array
      */
-    const VIN_VALIDATION_ERROR_DATA = [
-        "vin" => [
-            "The vin must be at least 10 characters."
+    const UVC_VALIDATION_ERROR_DATA = [
+        "uvc" => [
+            "The uvc must be at least 10 characters."
         ]
     ];
 
     /**
-     * Test VIN route
+     * Test UVC route
      *
      * @return void
      */
-    public function testBlackbookVIN()
+    public function testBlackbookUVC()
     {
         Http::fake([
             "{$_ENV['BLACKBOOK_BASEURL']}*" => Http::response(self::DATA_ONE, JsonResponse::HTTP_OK)
         ]);
 
-        $response = $this->postJson("/api/vehicle-valuation/blackbook/powersports/VIN/".self::VIN, [], ['api-key'=>$_ENV['API_KEY']]);
+        $response = $this->postJson("/api/vehicle-valuation/blackbook/powersports/UVC/".self::UVC, [], ['api-key'=>$_ENV['API_KEY']]);
         $response->assertStatus(JsonResponse::HTTP_OK);
         $response->assertJson(self::CONTROLLER_RESPONSE_ONE);
     }
 
     /**
-     * Test VIN route with invalid api key
+     * Test UVC route with invalid api key
      *
      * @return void
      */
@@ -118,40 +118,40 @@ class BlackBookPowerSportsVINTest extends TestCase
             "{$_ENV['BLACKBOOK_BASEURL']}*" => Http::response(self::DATA_ONE, JsonResponse::HTTP_OK)
         ]);
 
-        $response = $this->postJson("/api/vehicle-valuation/blackbook/powersports/VIN/".self::VIN, [], ['api-key'=>self::INVALID_API_KEY]);
+        $response = $this->postJson("/api/vehicle-valuation/blackbook/powersports/UVC/".self::UVC, [], ['api-key'=>self::INVALID_API_KEY]);
         $response->assertStatus(JsonResponse::HTTP_FORBIDDEN);
     }
 
     /**
-     * Test VIN route for no vehicle found from Blackbook
+     * Test UVC route for no vehicle found from Blackbook
      *
      * @return void
      */
-    public function testBlackbookVINNoVehicle()
+    public function testBlackbookUVCNoVehicle()
     {
         Http::fake([
             "{$_ENV['BLACKBOOK_BASEURL']}*" => Http::response(self::DATA_TWO, JsonResponse::HTTP_OK)
         ]);
 
-        $response = $this->postJson("/api/vehicle-valuation/blackbook/powersports/VIN/".self::VIN_TWO, [], ['api-key'=>$_ENV['API_KEY']]);
+        $response = $this->postJson("/api/vehicle-valuation/blackbook/powersports/UVC/".self::UVC_TWO, [], ['api-key'=>$_ENV['API_KEY']]);
         $response->assertStatus(JsonResponse::HTTP_OK);
         $response->assertJson(self::CONTROLLER_RESPONSE_TWO);
     }
 
     /**
-     * Test invalid VIN
+     * Test invalid UVC
      *
      * @return void
      */
-    public function testBlackbookIncorrectVIN()
+    public function testBlackbookIncorrectUVC()
     {
         Http::fake([
             "{$_ENV['BLACKBOOK_BASEURL']}*" => Http::response(self::DATA_ONE, JsonResponse::HTTP_OK)
         ]);
 
-        $response = $this->postJson("/api/vehicle-valuation/blackbook/powersports/VIN/"."abc", [], ['api-key'=>$_ENV['API_KEY']]);
+        $response = $this->postJson("/api/vehicle-valuation/blackbook/powersports/UVC/"."abc", [], ['api-key'=>$_ENV['API_KEY']]);
         $response->assertStatus(JsonResponse::HTTP_BAD_REQUEST);
-        $response->assertJson(self::VIN_VALIDATION_ERROR_DATA);
+        $response->assertJson(self::UVC_VALIDATION_ERROR_DATA);
     }
 
     /**
@@ -165,7 +165,7 @@ class BlackBookPowerSportsVINTest extends TestCase
             "{$_ENV['BLACKBOOK_BASEURL']}*" => Http::response('', JsonResponse::HTTP_UNAUTHORIZED)
         ]);
 
-        $response = $this->postJson("/api/vehicle-valuation/blackbook/powersports/VIN/".self::VIN, [], ['api-key'=>$_ENV['API_KEY']]);
+        $response = $this->postJson("/api/vehicle-valuation/blackbook/powersports/UVC/".self::UVC, [], ['api-key'=>$_ENV['API_KEY']]);
         $response->assertStatus(JsonResponse::HTTP_UNAUTHORIZED);
     }
 }
