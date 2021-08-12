@@ -22,9 +22,9 @@ Route::get('/', function () {
     return 'Hello from the Laravel API!';
 });
 Route::middleware([ValidateAPIKey::class])->group(function () {
-    Route::post('/vehicle-valuation/blackbook/powersports/VIN/{vin}', BlackbookPowerSportsVIN::class);
-    Route::post('/vehicle-valuation/blackbook/powersports/UVC/{uvc}', BlackbookPowerSportsUVC::class);
-    Route::post('/vehicle-valuation/blackbook/powersports/{year}/{make}/{model}', BlackbookPowerSportsYMM::class);
+    Route::post('/vehicle-valuation/blackbook/powersports/VIN/{vin}', BlackbookPowerSportsVIN::class)->name('blackbook-vin');
+    Route::post('/vehicle-valuation/blackbook/powersports/UVC/{uvc}', BlackbookPowerSportsUVC::class)->name('blackbook-uvc');
+    Route::post('/vehicle-valuation/blackbook/powersports/{year}/{make}/{model}', BlackbookPowerSportsYMM::class)->name('blackbook-ymm');;
 });
 
 // routes only used for testing mongodb connection:
