@@ -1,5 +1,5 @@
 {
-    "name": "tony133/laravel-api-rest",
+    "name": "traderinteractive/vehicle-valuation",
     "type": "project",
     "description": "Simple example of a REST API with Laravel 8.x",
     "keywords": [
@@ -8,7 +8,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^8.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",

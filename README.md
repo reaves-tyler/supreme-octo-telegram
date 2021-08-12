@@ -1,6 +1,6 @@
 # Laravel Api Rest
 
-[![Build Status](https://travis-ci.org/Tony133/laravel-api-rest.svg?branch=master)](https://travis-ci.org/Tony133/laravel-api-rest)
+[![Build and Test](https://github.com/reaves-tyler/supreme-octo-telegram/actions/workflows/laravel.yml/badge.svg)](https://github.com/reaves-tyler/supreme-octo-telegram/actions/workflows/laravel.yml)
 
 Simple example of a REST API with Laravel 8.x
 
