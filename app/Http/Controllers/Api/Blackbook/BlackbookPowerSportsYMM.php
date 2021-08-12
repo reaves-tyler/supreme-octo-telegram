@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Blackbook;
 
 use App\Http\Controllers\Controller;
+use App\Http\Helpers\APIToTIConverter;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Http;
@@ -30,7 +31,7 @@ class BlackbookPowerSportsYMM extends Controller
                 'model' => $this->model,
             ],
             [
-                'year' => 'required|integer',
+                'year' => 'required|integer|digits:4',
                 'make' => 'required|string',
                 'model' => 'required|string',
             ]
@@ -40,7 +41,7 @@ class BlackbookPowerSportsYMM extends Controller
         }
 
         $response = $this->getVehicleValuation();
-        return $response->json();
+        return $response;
     }
 
     private function getVehicleValuation()
@@ -53,7 +54,7 @@ class BlackbookPowerSportsYMM extends Controller
             $response->throw();
         }
 
-        return $response;
+        return APIToTIConverter::convertBlackBookToDto($response);
     }
 
     private function generateUrl()

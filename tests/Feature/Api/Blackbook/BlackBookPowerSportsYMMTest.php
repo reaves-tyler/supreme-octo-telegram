@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\JsonResponse;
 
-class BlackBookPowerSportsVINTest extends TestCase
+class BlackBookPowerSportsYMMTest extends TestCase
 {
     /**
      * @var: string
@@ -14,14 +14,31 @@ class BlackBookPowerSportsVINTest extends TestCase
     const INVALID_API_KEY = '123';
 
     /**
-     * @var: string
+     * @var: array
      */
-    const VIN = '1HD1HHZ187K811405';
+    const YMM = [
+        "year" => 2007,
+        "make" => "Harley-Davidson",
+        "model" => "VRSCDX Night Rod Special"
+    ];
 
     /**
-     * @var: string
+     * @var: array
      */
-    const VIN_TWO = 'ABCDEFGHIJKLMNOPQ';
+    const YMM_TWO = [
+        "year" => 2007,
+        "make" => "Foo",
+        "model" => "Bar"
+    ];
+
+    /**
+     * @var: array
+     */
+    const YMM_THREE = [
+        "year" => 0,
+        "make" => "Harley-Davidson",
+        "model" => "VRSCDX Night Rod Special"
+    ];
 
     /**
      * @var array
@@ -86,8 +103,8 @@ class BlackBookPowerSportsVINTest extends TestCase
      * @var array
      */
     const VIN_VALIDATION_ERROR_DATA = [
-        "vin" => [
-            "The vin must be at least 10 characters."
+        "year" => [
+            'The year must be 4 digits.'
         ]
     ];
 
@@ -96,13 +113,16 @@ class BlackBookPowerSportsVINTest extends TestCase
      *
      * @return void
      */
-    public function testBlackbookVIN()
+    public function testBlackbookYMM()
     {
         Http::fake([
             "{$_ENV['BLACKBOOK_BASEURL']}*" => Http::response(self::DATA_ONE, JsonResponse::HTTP_OK)
         ]);
-
-        $response = $this->postJson("/api/vehicle-valuation/blackbook/powersports/".self::VIN, [], ['api-key'=>$_ENV['API_KEY']]);
+        $response = $this->postJson("/api/vehicle-valuation/blackbook/powersports/"
+            .self::YMM['year']."/".self::YMM['make']."/".self::YMM['model'], 
+            [], 
+            ['api-key'=>$_ENV['API_KEY']]
+        );
         $response->assertStatus(JsonResponse::HTTP_OK);
         $response->assertJson(self::CONTROLLER_RESPONSE_ONE);
     }
@@ -118,7 +138,11 @@ class BlackBookPowerSportsVINTest extends TestCase
             "{$_ENV['BLACKBOOK_BASEURL']}*" => Http::response(self::DATA_ONE, JsonResponse::HTTP_OK)
         ]);
 
-        $response = $this->postJson("/api/vehicle-valuation/blackbook/powersports/".self::VIN, [], ['api-key'=>self::INVALID_API_KEY]);
+        $response = $this->postJson("/api/vehicle-valuation/blackbook/powersports/"
+            .self::YMM['year']."/".self::YMM['make']."/".self::YMM['model'], 
+            [], 
+            ['api-key'=>self::INVALID_API_KEY]
+        );
         $response->assertStatus(JsonResponse::HTTP_FORBIDDEN);
     }
 
@@ -133,23 +157,31 @@ class BlackBookPowerSportsVINTest extends TestCase
             "{$_ENV['BLACKBOOK_BASEURL']}*" => Http::response(self::DATA_TWO, JsonResponse::HTTP_OK)
         ]);
 
-        $response = $this->postJson("/api/vehicle-valuation/blackbook/powersports/".self::VIN_TWO, [], ['api-key'=>$_ENV['API_KEY']]);
+        $response = $this->postJson("/api/vehicle-valuation/blackbook/powersports/"
+            .self::YMM_TWO['year']."/".self::YMM_TWO['make']."/".self::YMM_TWO['model'], 
+            [], 
+            ['api-key'=>$_ENV['API_KEY']]
+        );
         $response->assertStatus(JsonResponse::HTTP_OK);
         $response->assertJson(self::CONTROLLER_RESPONSE_TWO);
     }
 
     /**
-     * Test invalid VIN
+     * Test invalid YMM
      *
      * @return void
      */
-    public function testBlackbookIncorrectVIN()
+    public function testBlackbookIncorrectYMM()
     {
         Http::fake([
             "{$_ENV['BLACKBOOK_BASEURL']}*" => Http::response(self::DATA_ONE, JsonResponse::HTTP_OK)
         ]);
 
-        $response = $this->postJson("/api/vehicle-valuation/blackbook/powersports/"."abc", [], ['api-key'=>$_ENV['API_KEY']]);
+        $response = $this->postJson("/api/vehicle-valuation/blackbook/powersports/"
+            .self::YMM_THREE['year']."/".self::YMM_THREE['make']."/".self::YMM_THREE['model'], 
+            [], 
+            ['api-key'=>$_ENV['API_KEY']]
+        );
         $response->assertStatus(JsonResponse::HTTP_BAD_REQUEST);
         $response->assertJson(self::VIN_VALIDATION_ERROR_DATA);
     }
@@ -165,7 +197,11 @@ class BlackBookPowerSportsVINTest extends TestCase
             "{$_ENV['BLACKBOOK_BASEURL']}*" => Http::response('', JsonResponse::HTTP_UNAUTHORIZED)
         ]);
 
-        $response = $this->postJson("/api/vehicle-valuation/blackbook/powersports/".self::VIN, [], ['api-key'=>$_ENV['API_KEY']]);
+        $response = $this->postJson("/api/vehicle-valuation/blackbook/powersports/"
+            .self::YMM['year']."/".self::YMM['make']."/".self::YMM['model'], 
+            [], 
+            ['api-key'=>$_ENV['API_KEY']]
+        );
         $response->assertStatus(JsonResponse::HTTP_UNAUTHORIZED);
     }
 }
