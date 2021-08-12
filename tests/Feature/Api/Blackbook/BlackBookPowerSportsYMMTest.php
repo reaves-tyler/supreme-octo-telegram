@@ -11,6 +11,11 @@ class BlackBookPowerSportsYMMTest extends TestCase
     /**
      * @var: string
      */
+    const ROUTE_NAME = 'blackbook-ymm';
+
+    /**
+     * @var: string
+     */
     const INVALID_API_KEY = '123';
 
     /**
@@ -118,11 +123,9 @@ class BlackBookPowerSportsYMMTest extends TestCase
         Http::fake([
             "{$_ENV['BLACKBOOK_BASEURL']}*" => Http::response(self::DATA_ONE, JsonResponse::HTTP_OK)
         ]);
-        $response = $this->postJson("/api/vehicle-valuation/blackbook/powersports/"
-            .self::YMM['year']."/".self::YMM['make']."/".self::YMM['model'], 
-            [], 
-            ['api-key'=>$_ENV['API_KEY']]
-        );
+
+        $url = route(self::ROUTE_NAME, self::YMM);
+        $response = $this->postJson($url, [], ['api-key'=>$_ENV['API_KEY']]);
         $response->assertStatus(JsonResponse::HTTP_OK);
         $response->assertJson(self::CONTROLLER_RESPONSE_ONE);
     }
@@ -138,11 +141,8 @@ class BlackBookPowerSportsYMMTest extends TestCase
             "{$_ENV['BLACKBOOK_BASEURL']}*" => Http::response(self::DATA_ONE, JsonResponse::HTTP_OK)
         ]);
 
-        $response = $this->postJson("/api/vehicle-valuation/blackbook/powersports/"
-            .self::YMM['year']."/".self::YMM['make']."/".self::YMM['model'], 
-            [], 
-            ['api-key'=>self::INVALID_API_KEY]
-        );
+        $url = route(self::ROUTE_NAME, self::YMM);
+        $response = $this->postJson($url, [], ['api-key'=>self::INVALID_API_KEY]);
         $response->assertStatus(JsonResponse::HTTP_FORBIDDEN);
     }
 
@@ -157,11 +157,8 @@ class BlackBookPowerSportsYMMTest extends TestCase
             "{$_ENV['BLACKBOOK_BASEURL']}*" => Http::response(self::DATA_TWO, JsonResponse::HTTP_OK)
         ]);
 
-        $response = $this->postJson("/api/vehicle-valuation/blackbook/powersports/"
-            .self::YMM_TWO['year']."/".self::YMM_TWO['make']."/".self::YMM_TWO['model'], 
-            [], 
-            ['api-key'=>$_ENV['API_KEY']]
-        );
+        $url = route(self::ROUTE_NAME, self::YMM_TWO);
+        $response = $this->postJson($url, [], ['api-key'=>$_ENV['API_KEY']]);
         $response->assertStatus(JsonResponse::HTTP_OK);
         $response->assertJson(self::CONTROLLER_RESPONSE_TWO);
     }
@@ -177,11 +174,8 @@ class BlackBookPowerSportsYMMTest extends TestCase
             "{$_ENV['BLACKBOOK_BASEURL']}*" => Http::response(self::DATA_ONE, JsonResponse::HTTP_OK)
         ]);
 
-        $response = $this->postJson("/api/vehicle-valuation/blackbook/powersports/"
-            .self::YMM_THREE['year']."/".self::YMM_THREE['make']."/".self::YMM_THREE['model'], 
-            [], 
-            ['api-key'=>$_ENV['API_KEY']]
-        );
+        $url = route(self::ROUTE_NAME, self::YMM_THREE);
+        $response = $this->postJson($url, [], ['api-key'=>$_ENV['API_KEY']]);
         $response->assertStatus(JsonResponse::HTTP_BAD_REQUEST);
         $response->assertJson(self::VIN_VALIDATION_ERROR_DATA);
     }
@@ -197,11 +191,8 @@ class BlackBookPowerSportsYMMTest extends TestCase
             "{$_ENV['BLACKBOOK_BASEURL']}*" => Http::response('', JsonResponse::HTTP_UNAUTHORIZED)
         ]);
 
-        $response = $this->postJson("/api/vehicle-valuation/blackbook/powersports/"
-            .self::YMM['year']."/".self::YMM['make']."/".self::YMM['model'], 
-            [], 
-            ['api-key'=>$_ENV['API_KEY']]
-        );
+        $url = route(self::ROUTE_NAME, self::YMM);
+        $response = $this->postJson($url, [], ['api-key'=>$_ENV['API_KEY']]);
         $response->assertStatus(JsonResponse::HTTP_UNAUTHORIZED);
     }
 }
