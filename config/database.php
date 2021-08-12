@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'mysql'),
+    'default' => env('DB_CONNECTION', 'mongodb'),
 
     /*
     |--------------------------------------------------------------------------
@@ -109,7 +109,11 @@ return [
             'prefix' => '',
             'prefix_indexes' => true,
         ],
-
+        'mongodb' => [
+            'driver' => 'mongodb',
+            'dsn' => env('DB_URI', "mongodb+srv://{$_ENV['MONGODB_USERNAME']}:{$_ENV['MONGODB_PASSWORD']}@{$_ENV['MONGODB_ATLAS_CLUSTER_URI']}/{$_ENV['MONGODB_DB_NAME']}?retryWrites=true&w=majority"),
+            'database' => $_ENV['MONGODB_DB_NAME'],
+        ]
     ],
 
     /*

@@ -69,3 +69,12 @@ Uncomment line in `php.ini`
 ```
     $ XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-html reports/
 ```
+
+## Connect with mongodb (php 8.x)
+
+```
+    $ pecl install mongodb
+```
+
+Add line in `php.ini`
+`extension="mongodb.so"`
