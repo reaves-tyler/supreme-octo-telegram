@@ -25,6 +25,7 @@
             <directory suffix=".php">./app/Providers</directory>
             <directory suffix=".php">./app/Exceptions</directory>
             <directory suffix=".php">./app/Console</directory>
+            <file>./app/Http/Controllers/PostController.php</file>
         </exclude>
     </coverage>
     <php>
