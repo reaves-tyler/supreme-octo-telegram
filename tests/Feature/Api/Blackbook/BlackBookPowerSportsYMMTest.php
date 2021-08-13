@@ -114,7 +114,7 @@ class BlackBookPowerSportsYMMTest extends TestCase
     ];
 
     /**
-     * Test VIN route
+     * Test YMM route
      *
      * @return void
      */
@@ -131,7 +131,7 @@ class BlackBookPowerSportsYMMTest extends TestCase
     }
 
     /**
-     * Test VIN route with invalid api key
+     * Test YMM route with invalid api key
      *
      * @return void
      */
@@ -147,7 +147,7 @@ class BlackBookPowerSportsYMMTest extends TestCase
     }
 
     /**
-     * Test VIN route for no vehicle found from Blackbook
+     * Test YMM route for no vehicle found from Blackbook
      *
      * @return void
      */
