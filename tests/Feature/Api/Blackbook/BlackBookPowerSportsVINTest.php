@@ -11,7 +11,7 @@ class BlackBookPowerSportsVINTest extends TestCase
     /**
      * @var: string
      */
-    const ROUTE_NAME = 'blackbook-vin';
+    const ROUTE_NAME = 'blackbook-powersports-vin';
 
     /**
      * @var: string

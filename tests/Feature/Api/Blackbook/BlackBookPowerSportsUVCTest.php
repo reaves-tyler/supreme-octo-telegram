@@ -11,7 +11,7 @@ class BlackBookPowerSportsUVCTest extends TestCase
     /**
      * @var: string
      */
-    const ROUTE_NAME = 'blackbook-uvc';
+    const ROUTE_NAME = 'blackbook-powersports-uvc';
 
     /**
      * @var: string

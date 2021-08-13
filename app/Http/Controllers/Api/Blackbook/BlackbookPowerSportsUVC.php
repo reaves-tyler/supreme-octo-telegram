@@ -36,7 +36,7 @@ class BlackbookPowerSportsUVC extends Controller
             $response->throw();
         }
 
-        return APIToTIConverter::convertBlackBookToDto($response);
+        return APIToTIConverter::convertBlackBookPowerSportsToDto($response);
     }
 
     private function generateUrl(string $uvc)

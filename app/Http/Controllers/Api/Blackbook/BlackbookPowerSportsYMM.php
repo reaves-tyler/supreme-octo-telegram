@@ -54,7 +54,7 @@ class BlackbookPowerSportsYMM extends Controller
             $response->throw();
         }
 
-        return APIToTIConverter::convertBlackBookToDto($response);
+        return APIToTIConverter::convertBlackBookPowerSportsToDto($response);
     }
 
     private function generateUrl()
