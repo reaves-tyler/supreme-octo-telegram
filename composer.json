@@ -7,6 +7,12 @@
         "laravel"
     ],
     "license": "MIT",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://s3-us-west-2.amazonaws.com/php-packages.traderonline.com"
+        }
+    ],
     "require": {
         "php": "^8.0",
         "fideloper/proxy": "^4.4",
@@ -14,7 +20,8 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "jenssegers/mongodb": "^3.8",
         "laravel/framework": "^8.12",
-        "laravel/tinker": "^2.0"
+        "laravel/tinker": "^2.0",
+        "traderinteractive/business-constants": "^1.5"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",

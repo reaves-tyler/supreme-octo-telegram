@@ -94,6 +94,7 @@ class BlackBookRvYMMTest extends TestCase
      * @var array
      */
     const CONTROLLER_RESPONSE_ONE = [
+        'realm_id' => 3,
         "uvc" => "2000298134",
         "model_year" => "2000",
         "make" => "Jayco",

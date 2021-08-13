@@ -86,6 +86,7 @@ class BlackBookPowerSportsYMMTest extends TestCase
      * @var array
      */
     const CONTROLLER_RESPONSE_ONE = [
+        'realm_id' => 5,
         "vin" => "1HD1HHZ187K811405",
         "model_year" => "2007",
         "make" => "Harley-Davidson",
