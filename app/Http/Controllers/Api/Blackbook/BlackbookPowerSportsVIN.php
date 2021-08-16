@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
-use TraderInteractive\Http\Message\Constants\HeaderInterface;
 
 
 class BlackbookPowerSportsVIN extends Controller
@@ -31,7 +30,7 @@ class BlackbookPowerSportsVIN extends Controller
     {
         $auth = base64_encode($_ENV['BLACKBOOK_USERNAME'] . ':' . $_ENV['BLACKBOOK_PASSWORD']);
         $response = Http::withHeaders([
-            HeaderInterface::HEADER_AUTHORIZATION => "Basic {$auth}"
+            'Authorization' => "Basic {$auth}"
         ])->get($this->generateUrl($vin));
         if ($response->failed()) {
             $response->throw();

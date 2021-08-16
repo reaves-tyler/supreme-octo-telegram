@@ -13,3 +13,4 @@ npm-debug.log
 yarn-error.log
 /reports
 composer.lock
+.vercel

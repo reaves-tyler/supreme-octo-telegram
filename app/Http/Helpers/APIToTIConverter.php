@@ -2,8 +2,6 @@
 
 namespace App\Http\Helpers;
 
-use TraderInteractive\Constants\RealmInterface;
-
 final class APIToTIConverter
 {
     /**
@@ -20,7 +18,7 @@ final class APIToTIConverter
         }
 
         return [
-            'realm_id' => RealmInterface::CYCLE,
+            'realm_id' => 5,
             'vin' => $vehicles_list[0]['vin'],
             'model_year' => $vehicles_list[0]['model_year'],
             'make' => $vehicles_list[0]['make'],
@@ -49,7 +47,7 @@ final class APIToTIConverter
         }
 
         return [
-            'realm_id' => RealmInterface::RV,
+            'realm_id' => 3,
             'uvc' => $vehicles_list[0]['uvc'],
             'model_year' => $vehicles_list[0]['model_year'],
             'make' => $vehicles_list[0]['make'],
