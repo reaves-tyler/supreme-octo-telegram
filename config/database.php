@@ -111,8 +111,8 @@ return [
         ],
         'mongodb' => [
             'driver' => 'mongodb',
-            'dsn' => env('DB_URI', "mongodb+srv://{$_ENV['MONGODB_USERNAME']}:{$_ENV['MONGODB_PASSWORD']}@{$_ENV['MONGODB_ATLAS_CLUSTER_URI']}/{$_ENV['MONGODB_DB_NAME']}?retryWrites=true&w=majority"),
-            'database' => $_ENV['MONGODB_DB_NAME'],
+            'dsn' => env('DB_URI', "mongodb+srv://".env('MONGODB_USERNAME').":".env('MONGODB_PASSWORD')."@".env('MONGODB_ATLAS_CLUSTER_URI')."/".env('MONGODB_DB_NAME')."?retryWrites=true&w=majority"),
+            'database' => env('MONGODB_DB_NAME'),
         ]
     ],
 

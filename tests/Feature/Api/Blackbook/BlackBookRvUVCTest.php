@@ -109,11 +109,11 @@ class BlackBookRvUVCTest extends TestCase
     public function testBlackbookUVC()
     {
         Http::fake([
-            "{$_ENV['BLACKBOOK_BASEURL']}*" => Http::response(self::DATA_ONE, JsonResponse::HTTP_OK)
+            env('BLACKBOOK_BASEURL')."*" => Http::response(self::DATA_ONE, JsonResponse::HTTP_OK)
         ]);
 
         $url = route(self::ROUTE_NAME, ['uvc'=>self::UVC]);
-        $response = $this->postJson($url, [], ['api-key'=>$_ENV['API_KEY']]);
+        $response = $this->getJson($url, ['api-key'=>env('API_KEY')]);
         $response->assertStatus(JsonResponse::HTTP_OK);
         $response->assertJson(self::CONTROLLER_RESPONSE_ONE);
     }
@@ -126,11 +126,11 @@ class BlackBookRvUVCTest extends TestCase
     public function testInvalidVVAPIKey()
     {
         Http::fake([
-            "{$_ENV['BLACKBOOK_BASEURL']}*" => Http::response(self::DATA_ONE, JsonResponse::HTTP_OK)
+            env('BLACKBOOK_BASEURL')."*" => Http::response(self::DATA_ONE, JsonResponse::HTTP_OK)
         ]);
 
         $url = route(self::ROUTE_NAME, ['uvc'=>self::UVC]);
-        $response = $this->postJson($url, [], ['api-key'=>self::INVALID_API_KEY]);
+        $response = $this->getJson($url, ['api-key'=>self::INVALID_API_KEY]);
         $response->assertStatus(JsonResponse::HTTP_FORBIDDEN);
     }
 
@@ -142,11 +142,11 @@ class BlackBookRvUVCTest extends TestCase
     public function testBlackbookUVCNoVehicle()
     {
         Http::fake([
-            "{$_ENV['BLACKBOOK_BASEURL']}*" => Http::response(self::DATA_TWO, JsonResponse::HTTP_OK)
+            env('BLACKBOOK_BASEURL')."*" => Http::response(self::DATA_TWO, JsonResponse::HTTP_OK)
         ]);
 
         $url = route(self::ROUTE_NAME, ['uvc'=>self::UVC_TWO]);
-        $response = $this->postJson($url, [], ['api-key'=>$_ENV['API_KEY']]);
+        $response = $this->getJson($url, ['api-key'=>env('API_KEY')]);
         $response->assertStatus(JsonResponse::HTTP_OK);
         $response->assertJson(self::CONTROLLER_RESPONSE_TWO);
     }
@@ -159,11 +159,11 @@ class BlackBookRvUVCTest extends TestCase
     public function testBlackbookIncorrectUVC()
     {
         Http::fake([
-            "{$_ENV['BLACKBOOK_BASEURL']}*" => Http::response(self::DATA_ONE, JsonResponse::HTTP_OK)
+            env('BLACKBOOK_BASEURL')."*" => Http::response(self::DATA_ONE, JsonResponse::HTTP_OK)
         ]);
 
         $url = route(self::ROUTE_NAME, ['uvc'=>'abc']);
-        $response = $this->postJson($url, [], ['api-key'=>$_ENV['API_KEY']]);
+        $response = $this->getJson($url, ['api-key'=>env('API_KEY')]);
         $response->assertStatus(JsonResponse::HTTP_BAD_REQUEST);
         $response->assertJson(self::UVC_VALIDATION_ERROR_DATA);
     }
@@ -176,11 +176,11 @@ class BlackBookRvUVCTest extends TestCase
     public function testBlackbookFailedAPICall()
     {
         Http::fake([
-            "{$_ENV['BLACKBOOK_BASEURL']}*" => Http::response('', JsonResponse::HTTP_UNAUTHORIZED)
+            env('BLACKBOOK_BASEURL')."*" => Http::response('', JsonResponse::HTTP_UNAUTHORIZED)
         ]);
 
         $url = route(self::ROUTE_NAME, ['uvc'=>self::UVC]);
-        $response = $this->postJson($url, [], ['api-key'=>$_ENV['API_KEY']]);
+        $response = $this->getJson($url, ['api-key'=>env('API_KEY')]);
         $response->assertStatus(JsonResponse::HTTP_UNAUTHORIZED);
     }
 }

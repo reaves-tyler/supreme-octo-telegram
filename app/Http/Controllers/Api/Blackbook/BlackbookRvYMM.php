@@ -20,7 +20,7 @@ class BlackbookRvYMM extends Controller
 
     public function __invoke(Request $request)
     {
-        $this->auth = base64_encode($_ENV['BLACKBOOK_USERNAME'] . ':' . $_ENV['BLACKBOOK_PASSWORD']);
+        $this->auth = base64_encode(env('BLACKBOOK_USERNAME') . ':' . env('BLACKBOOK_PASSWORD'));
         $this->year = $request->year;
         $this->make = $request->make;
         $this->model = $request->model;
@@ -63,6 +63,6 @@ class BlackbookRvYMM extends Controller
 
     private function generateUrl()
     {
-        return $_ENV['BLACKBOOK_BASEURL'] .  "RVAPI/RVAPI/Vehicle/{$this->year}?make={$this->make}&model={$this->model}&style={$this->style}";
+        return env('BLACKBOOK_BASEURL') .  "RVAPI/RVAPI/Vehicle/{$this->year}?make={$this->make}&model={$this->model}&style={$this->style}";
     }
 }

@@ -18,7 +18,7 @@ class ExceptionsTest extends TestCase
      * @return void
      */
     public function testInvalidMethod() {
-        $response = $this->get("/api/vehicle-valuation/blackbook/powersports/VIN/".self::VIN, ['api-key'=>$_ENV['API_KEY']]);
+        $response = $this->post("/vehicle-valuation/blackbook/powersports/VIN/".self::VIN, [], ['api-key'=>env('API_KEY')]);
         $response->assertStatus(JsonResponse::HTTP_METHOD_NOT_ALLOWED);
     }
 }

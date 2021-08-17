@@ -30,13 +30,13 @@ Route::get('/hello', function () {
 });
 
 
-// Route::middleware([ValidateAPIKey::class])->group(function () {
-Route::get('/vehicle-valuation/blackbook/powersports/VIN/{vin}', BlackbookPowerSportsVIN::class)->name('blackbook-powersports-vin');
-Route::get('/vehicle-valuation/blackbook/powersports/UVC/{uvc}', BlackbookPowerSportsUVC::class)->name('blackbook-powersports-uvc');
-Route::get('/vehicle-valuation/blackbook/powersports/{year}/{make}/{model}', BlackbookPowerSportsYMM::class)->name('blackbook-powersports-ymm');
-Route::get('/vehicle-valuation/blackbook/rv/UVC/{uvc}', BlackbookRvUVC::class)->name('blackbook-rv-uvc');
-Route::get('/vehicle-valuation/blackbook/rv/{year}/{make}/{model}/{style}', BlackbookRvYMM::class)->name('blackbook-rv-ymm');
-// });
+Route::middleware([ValidateAPIKey::class])->group(function () {
+    Route::get('/vehicle-valuation/blackbook/powersports/VIN/{vin}', BlackbookPowerSportsVIN::class)->name('blackbook-powersports-vin');
+    Route::get('/vehicle-valuation/blackbook/powersports/UVC/{uvc}', BlackbookPowerSportsUVC::class)->name('blackbook-powersports-uvc');
+    Route::get('/vehicle-valuation/blackbook/powersports/{year}/{make}/{model}', BlackbookPowerSportsYMM::class)->name('blackbook-powersports-ymm');
+    Route::get('/vehicle-valuation/blackbook/rv/UVC/{uvc}', BlackbookRvUVC::class)->name('blackbook-rv-uvc');
+    Route::get('/vehicle-valuation/blackbook/rv/{year}/{make}/{model}/{style}', BlackbookRvYMM::class)->name('blackbook-rv-ymm');
+});
 
 // routes only used for testing mongodb connection:
 Route::resource('posts', PostController::class)->only([

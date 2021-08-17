@@ -16,7 +16,7 @@ class ValidateAPIKey
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->header('api-key') !== $_ENV['API_KEY']) {
+        if ($request->header('api-key') !== env('API_KEY')) {
             return response('Please use api-key.', 403);
         }
 

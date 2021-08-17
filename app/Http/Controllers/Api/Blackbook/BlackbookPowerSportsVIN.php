@@ -28,7 +28,7 @@ class BlackbookPowerSportsVIN extends Controller
 
     private function getVehicleValuation(string $vin)
     {
-        $auth = base64_encode($_ENV['BLACKBOOK_USERNAME'] . ':' . $_ENV['BLACKBOOK_PASSWORD']);
+        $auth = base64_encode(env('BLACKBOOK_USERNAME') . ':' . env('BLACKBOOK_PASSWORD'));
         $response = Http::withHeaders([
             'Authorization' => "Basic {$auth}"
         ])->get($this->generateUrl($vin));
@@ -41,6 +41,6 @@ class BlackbookPowerSportsVIN extends Controller
 
     private function generateUrl(string $vin)
     {
-        return $_ENV['BLACKBOOK_BASEURL'] .  "PowersportsAPI/PowersportsAPI/Vehicle/VIN/{$vin}";
+        return env('BLACKBOOK_BASEURL') .  "PowersportsAPI/PowersportsAPI/Vehicle/VIN/{$vin}";
     }
 }

@@ -28,7 +28,7 @@ class BlackbookPowerSportsUVC extends Controller
 
     private function getVehicleValuation(string $uvc)
     {
-        $auth = base64_encode($_ENV['BLACKBOOK_USERNAME'] . ':' . $_ENV['BLACKBOOK_PASSWORD']);
+        $auth = base64_encode(env('BLACKBOOK_USERNAME') . ':' . env('BLACKBOOK_PASSWORD'));
         $response = Http::withHeaders([
             'Authorization' => "Basic {$auth}"
         ])->get($this->generateUrl($uvc));
@@ -41,6 +41,6 @@ class BlackbookPowerSportsUVC extends Controller
 
     private function generateUrl(string $uvc)
     {
-        return $_ENV['BLACKBOOK_BASEURL'] .  "PowersportsAPI/PowersportsAPI/Vehicle/UVC/{$uvc}";
+        return env('BLACKBOOK_BASEURL') .  "PowersportsAPI/PowersportsAPI/Vehicle/UVC/{$uvc}";
     }
 }
