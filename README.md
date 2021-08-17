@@ -78,3 +78,5 @@ Uncomment line in `php.ini`
 
 Add line in `php.ini`
 `extension="mongodb.so"`
+
+## Vercel
